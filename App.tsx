@@ -31,7 +31,6 @@ const AppContent: React.FC = () => {
     return <Login />;
   }
 
-  // Se for o primeiro acesso (senha não alterada), força a troca
   if (currentUser && !currentUser.passwordChanged) {
     return <ForceChangePassword />;
   }
@@ -44,11 +43,11 @@ const AppContent: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <DashboardOverview onStartSchedule={handleStartFromSchedule} />;
+        return <DashboardOverview onStartSchedule={handleStartFromSchedule} onNavigate={setActiveTab} />;
       case 'fleet':
-        return isAdmin ? <FleetManager /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} />;
+        return isAdmin ? <FleetManager /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} onNavigate={setActiveTab} />;
       case 'drivers':
-        return isAdmin ? <DriverManagement /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} />;
+        return isAdmin ? <DriverManagement /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} onNavigate={setActiveTab} />;
       case 'operation':
         return (
           <OperationWizard 
@@ -59,13 +58,13 @@ const AppContent: React.FC = () => {
       case 'history':
         return <HistoryPage />;
       case 'monitoring':
-        return isAdmin ? <TripMonitoring /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} />;
+        return isAdmin ? <TripMonitoring /> : <DashboardOverview onStartSchedule={handleStartFromSchedule} onNavigate={setActiveTab} />;
       case 'scheduling':
         return <SchedulingPage />;
       case 'reports':
         return <ReportsPage />;
       default:
-        return <DashboardOverview onStartSchedule={handleStartFromSchedule} />;
+        return <DashboardOverview onStartSchedule={handleStartFromSchedule} onNavigate={setActiveTab} />;
     }
   };
 
